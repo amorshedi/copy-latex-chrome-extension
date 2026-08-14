@@ -34,7 +34,6 @@
 	function showOverlayForTarget(target, tex) {
 		ns.state.currentTarget = target;
 		target.classList.add('hoverlatex-hover');
-		ns.output.showOverlay(target, tex);
 	}
 
 	document.addEventListener('mouseover', (e) => {
