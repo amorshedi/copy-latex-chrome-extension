@@ -34,7 +34,8 @@
 	function showOverlayForTarget(target, tex) {
 		ns.state.currentTarget = target;
 		target.classList.add('hoverlatex-hover');
-		ns.output.showOverlay(target, tex);
+		// Popup intentionally disabled: the hand cursor alone indicates the equation is clickable.
+		// ns.output.showOverlay(target, tex);
 	}
 
 	document.addEventListener('mouseover', (e) => {
