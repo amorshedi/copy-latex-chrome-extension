@@ -121,14 +121,18 @@
     const htmlString = container.innerHTML;
     let markdown = turndownService.turndown(htmlString);
 
-    // To ensure exactly one blank line around block equations:
-    // First we add spacing around all block equations ($$ as delimiter)
-    markdown = markdown.replace(/(\$\$[\s\S]+?\$\$)/g, '\n\n$1\n\n');
-    // Normalize (convert lines with only whitespaces to empty lines)
+    // Put display equations on their own line, with no blank lines
+    // immediately before or after them.
+    markdown = markdown.replace(
+      /[ \t]*\n*[ \t]*(\$\$[\s\S]+?\$\$)[ \t]*\n*[ \t]*/g,
+      '\n$1\n'
+    );
+
+    // Normalize whitespace-only lines.
     markdown = markdown.replace(/^[ \t]+$/gm, '');
-    // Then collapse 3 or more newlines to 2 newlines
+    // Preserve normal Markdown paragraph spacing elsewhere.
     markdown = markdown.replace(/\n{3,}/g, '\n\n');
-    // Then we trim other leading or trailing whitespaces
+    // Trim leading and trailing whitespace.
     markdown = markdown.trim();
 
     return markdown;
